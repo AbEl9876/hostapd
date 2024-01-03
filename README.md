@@ -29,7 +29,7 @@ The Wi-Fi interface is dedicated to functioning as the Access Point (AP), managi
 
 The Ethernet interface serves the purpose of providing internet connectivity to the device responsible for creating the AP. It allows the AP to share the internet connection with devices connecting to it.
 
-In our case, the Wi-Fi interface is named wlo1 and the Ethernet is named eth0. Remember, in the following steps to create the Access Point (AP), adapt the interface names to those of your computer. 
+In our case, the Wi-Fi interface is named wlo1 and the Ethernet is named eno1. Remember, in the following steps to create the Access Point (AP), adapt the interface names to those of your computer. 
 
 ## Steps to Create the Access Point (AP)
 
@@ -54,8 +54,8 @@ sudo systemctl stop systemd-resolved
 
 Before we start creating all the configuration files, let's create the folder where all the necessary files for setting up the AP will be located.
 ```bash
-sudo mkdir /home/AP
-cd /home/AP
+sudo mkdir ~/AP
+cd ~/AP
 ```
 
 Next, we create the DHCP server configuration file (`sudo nano dnsmasq.conf`) and its contents will be as follows:
