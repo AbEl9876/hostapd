@@ -31,13 +31,13 @@ The Ethernet interface serves the purpose of providing internet connectivity to 
 
 In our case, the Wi-Fi interface is named wlo1 and the Ethernet is named eth0. Remember, in the following steps to create the Access Point (AP), adapt the interface names to those of your computer. 
 
-### Steps to Create the Access Point (AP) and Start the Console
+## Steps to Create the Access Point (AP)
 
 This section provides a guide on how to create the Access Point (AP) and initiate the console.
 
-## Setup Guide
+### Setup Guide
 
-### **Step 1: Setting up Interface IP Address** 
+#### **Step 1: Setting up Interface IP Address** 
 We modify the `/etc/network/interfaces` file (sudo nano /etc/network/interfaces) to configure the Wi-Fi interface (it will act as our AP) with a static IP address within a private network.
 ```bash
 auto wlo1
@@ -46,7 +46,7 @@ address 172.16.0.1
 netmask 255.255.255.0
 ```
 
-### **Step 2: Configuring DHCP Server** 
+#### **Step 2: Configuring DHCP Server** 
 We use dnsmasq to provide DHCP services, assigning IP addresses to devices that connect to the AP. The dnsmasq service uses port 53 just like the `systemd-resolved` service. Therefore we have to free port 53:
 ```bash
 sudo systemctl stop systemd-resolved
@@ -72,14 +72,14 @@ Finally, in step 2, we'll load the created configuration into the dnsmasq servic
 sudo dnsmasq -C dnsmasq.conf
 ```
 
-### **Step 3: Enabling Internet Connection for Devices** 
+#### **Step 3: Enabling Internet Connection for Devices** 
 We enable IP forwarding and sets up NAT routing from the Ethernet interface to the wireless interface, granting internet access to devices connected to the AP.
 ```bash
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -o eno1 -j MASQUERADE
 ```
 
-### **Step 4: Running the Access Point**  
+#### **Step 4: Running the Access Point**  
 In the fourth and final step, we run the file main.py (which you can find in the src folder and we will put it in the folder we created earlier (/AP)), which initializes the AP and the management console:
 ```bash
 sudo python3 main.py
