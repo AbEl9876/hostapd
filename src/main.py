@@ -13,46 +13,32 @@ def generate_hostapd_conf(config):
     with open('hostapd.conf', 'w') as conf_file:
         conf_file.write(conf_content)
 
-
 # Function to disconnect users based on the time
-def disconnect_users_restart():
+def update_accept_MAC_list():
     lines_to_keep = []
     accepted_macs=[]
-    do_restart=False
-
-    with open('allowed_macs.txt') as f:
-        for line in f:
-            accepted_macs.append(line.strip())
+    try:
+        with open('allowed_macs.txt') as f:
+            for line in f:
+                accepted_macs.append(line.strip())
+    except:
+        pass
     
     with open('time_ranges.txt') as f:
         for line in f:
             mac, initial_time, final_time = line.strip().split()
             current_time = datetime.now().strftime('%H:%M')
-            
-            if current_time > initial_time and current_time < final_time:
+            if current_time >= initial_time and current_time < final_time:
                 lines_to_keep.append(mac)
                 if mac not in accepted_macs:
-                    do_restart=True
+                    subprocess.run(f"hostapd_cli accept_acl ADD_MAC {mac}", shell=True)
             else:
                 if mac in accepted_macs:
-                    do_restart=True
+                    subprocess.run(f"hostapd_cli accept_acl DEL_MAC {mac}", shell=True)
                     if mac in connected_macs:
-                        connected_macs.remove(mac)
-                        print(mac, "disconnected due to end time.")
-                
-                
+                        print(mac, "reached end time.")
     with open('allowed_macs.txt', 'w') as f:
         f.writelines(lines_to_keep)
-
-    if do_restart:
-        # Restart hostapd for updating configuration accepted MAC list
-        stop_command = "pkill hostapd"
-        subprocess.run(stop_command, shell=True)
-
-        time.sleep(2)
-
-        start_command = f"hostapd hostapd.conf > log_file.log 2>&1 &"
-        subprocess.run(start_command, shell=True)
     
 
 def validate_mac_address(mac_address):
@@ -65,7 +51,7 @@ def validate_time_format(time_str):
     time_pattern = re.compile(r'^([01]\d|2[0-3]):([0-5]\d)$')
     return bool(time_pattern.match(time_str))
 
-def generate_allowed_macs_file(config):
+def generate_allowed_macs_file():
     # Get MAC address from the user and validate the format
     mac_address = input("Enter MAC address: ").strip()
     while not validate_mac_address(mac_address):
@@ -87,11 +73,6 @@ def generate_allowed_macs_file(config):
     # Save data to files
     with open('time_ranges.txt', 'a') as time_file:
         time_file.write(f"{mac_address} {initial_time} {final_time}\n")
-
-    current_time = datetime.now().strftime('%H:%M')
-    with open(config['accept_mac_file'], 'a') as mac_file:
-        if current_time > initial_time and current_time < final_time:
-            mac_file.write(mac_address + '\n')
 
 
 def parse_mac_address(log_entry):
@@ -118,14 +99,13 @@ def monitor_log_file():
 if __name__=='__main__':
     #Wi-Fi configuration
     wifi_config = {
-        'interface': 'wlo1',
+        'interface': 'wlp3s0',
         'driver': 'nl80211',
-        'ssid': 'Test_Wifi',
+        'ssid': 'HotspotAbelJoel',
         'hw_mode': 'g',
-        'channel': 1,
+        'channel': 9,
         'ctrl_interface': '/var/run/hostapd',
         'macaddr_acl': 1,
-        'accept_mac_file': 'allowed_macs.txt',
     }
 
     # Generate hostapd.conf file
@@ -133,7 +113,7 @@ if __name__=='__main__':
 
     print('#'*39,'\n Introduce accepted MAC list for your AP\n','#'*39)
     while True:
-        generate_allowed_macs_file(wifi_config)
+        generate_allowed_macs_file()
         another_entry = input("Do you want to add a new MAC address to the accept list? (Y/N): ").strip().upper()
         while another_entry != 'Y' and another_entry != 'N':
             print("Invalid input. Please enter 'Y' or 'N'.")
@@ -144,7 +124,7 @@ if __name__=='__main__':
             break
 
     # Schedule the disconnect function every 1 minute
-    schedule.every(1).minutes.do(disconnect_users_restart)
+    schedule.every(10).seconds.do(update_accept_MAC_list)
 
     # Schedule the monitoring function
     schedule.every(20).seconds.do(monitor_log_file)
@@ -152,6 +132,10 @@ if __name__=='__main__':
     # Start hostapd
     start_command = f"hostapd hostapd.conf > log_file.log 2>&1 &"
     subprocess.run(start_command, shell=True)
+
+    time.sleep(1)
+
+    update_accept_MAC_list()
 
     try:
         while True:
@@ -163,4 +147,5 @@ if __name__=='__main__':
     # Stop hostapd on exit
     stop_command = "pkill hostapd"
     subprocess.run(stop_command, shell=True)
+
 
