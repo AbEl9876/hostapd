@@ -29,7 +29,7 @@ The Wi-Fi interface is dedicated to functioning as the Access Point (AP), managi
 
 The Ethernet interface serves the purpose of providing internet connectivity to the device responsible for creating the AP. It allows the AP to share the internet connection with devices connecting to it.
 
-In our case, the Wi-Fi interface is named wlo1 and the Ethernet is named eno1. Remember, in the following steps to create the Access Point (AP), adapt the interface names to those of your computer. 
+In our case, the Wi-Fi interface is named wlp3s0 and the Ethernet is named enp4s0. Remember, in the following steps to create the Access Point (AP), adapt the interface names to those of your computer. 
 
 ## Steps to Create the Access Point (AP)
 
@@ -40,8 +40,8 @@ This section provides a guide on how to create the Access Point (AP) and initiat
 #### **Step 1: Setting up Interface IP Address** 
 We modify the `/etc/network/interfaces` file (sudo nano /etc/network/interfaces) to configure the Wi-Fi interface (it will act as our AP) with a static IP address within a private network.
 ```bash
-auto wlo1
-iface wlo1 inet static
+auto wlp3s0
+iface wlp3s0 inet static
 address 172.16.0.1
 netmask 255.255.255.0
 ```
@@ -54,13 +54,13 @@ sudo systemctl stop systemd-resolved
 
 Before we start creating all the configuration files, let's create the folder where all the necessary files for setting up the AP will be located.
 ```bash
-sudo mkdir ~/AP
+mkdir ~/AP
 cd ~/AP
 ```
 
 Next, we create the DHCP server configuration file (`sudo nano dnsmasq.conf`) and its contents will be as follows:
 ```bash
-interface=wlo1
+interface=wlp3s0
 dhcp-range=172.16.0.2,172.16.0.5,255.255.255.0,24h
 server=8.8.8.8
 ```
@@ -76,7 +76,7 @@ sudo dnsmasq -C dnsmasq.conf
 We enable IP forwarding and sets up NAT routing from the Ethernet interface to the wireless interface, granting internet access to devices connected to the AP.
 ```bash
 sudo sysctl -w net.ipv4.ip_forward=1
-sudo iptables -t nat -A POSTROUTING -o eno1 -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -o enp4s0 -j MASQUERADE
 ```
 
 #### **Step 4: Running the Access Point**  
@@ -89,3 +89,6 @@ Now we have created the AP, which in our case, we have assigned the name X, and 
 
 ## Access Control Management Console
 Explicar que es pot fer amb la consola (opcions de consola), com filtrem els usuaris per mac i per temps, com avisem al administrador que s'ha connectat i desconectat (pel monitor i apart mirar de notificar per correo (veure si es necessari)), ...
+
+![Captura desde 2024-01-05 17-30-11](https://github.com/AbEl9876/hostapd/assets/133850497/1e83b9cb-5493-444e-a35f-35a123954681)
+
