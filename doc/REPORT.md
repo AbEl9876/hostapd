@@ -8,7 +8,7 @@ The main objective of this file is to explain:
 This section is divided into different subsections, each of them corresponding to a main functionality implemented for the AP program.
 
 ### Main program
-First of all, it is important to understand the main functionality of the program [src/main.py)](../src/main.py). The aim of this program is to create the corresponding AP by using hostapd tools. It also gives the user an interface (by a simple menu) to control the functionalities of the program: 
+First of all, it is important to understand the main functionality of the program [src/main.py](../src/main.py). The aim of this program is to create the corresponding AP by using hostapd tools. It also gives the user an interface (by a simple menu) to control the functionalities of the program: 
 
 - Sending information by email.
 - Controlling the accepted MAC list and the corresponding periods of time for each MAC.
