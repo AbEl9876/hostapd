@@ -115,8 +115,7 @@ Then, the AP is in initialized and the control menu is shown:
 
 - If option 1 is chosen, new accepted MAC's with their corresponding periods of time can be entered. Below an example of this option:
 
-file:///home/abel/Im%C3%A1genes/Capturas%20de%20pantalla/Captura%20desde%202024-01-06%2019-24-08.png
-
+![Captura desde 2024-01-06 19-23-04](https://github.com/AbEl9876/hostapd/assets/133850497/a0033ccc-87a7-4ac8-b3ea-0164bf21b14b)
 
 - If option 2 is chosen, a list of devices of interest and the time interval when they can connect is shown. Below an example of this option:
 
