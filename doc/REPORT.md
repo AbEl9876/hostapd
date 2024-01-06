@@ -67,7 +67,7 @@ The design implemented for `monitor_device_connection(line)` is the following:
 
 2. If the log file line corresponds to a disconnection type (contains the substring "AP-STA-DISCONNECTED"), it deletes the MAC from the global variable list called `connected_macs`. Then, by opening the file `time_ranges.txt`, it checks if the corresponding MAC reached end time.
 - If it did, it sends an email notifying the admin that this MAC disconnected due to time expiration.
-- If it did not, it sends an email notifying the admin that this MAC disconnected, but that the reason is unknown.
+- If it did not, it sends an email notifying the admin that this MAC disconnected.
 In both cases, it uses again the function `send_email()` for sending the corresponding email.
 
 
