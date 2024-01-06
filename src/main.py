@@ -141,11 +141,11 @@ def monitor_device_connection(log_entry):
             for line in lines:
                 mac, start, end = line.strip().split()
                 if mac == mac_address:
-                    if start <= datetime.now().strftime('%H:%M') <= end:
+                    if start <= datetime.now().strftime('%H:%M') < end:
                         # The device was disconnected for another reason
                         connected_macs = [mac for mac in connected_macs if mac != mac_address]
                         subject = f"Device disconnected from AP: {mac_address}"
-                        body = f"The device with MAC {mac_address} has disconnected from the AP for an unknown reason."
+                        body = f"The device with MAC {mac_address} has disconnected from the AP."
                         send_email(admin_email, subject, body)
                     else:
                         # The device was disconnected because access timed out
@@ -333,7 +333,6 @@ def main():
             choice = input("Select an option (1-5): ")
 
             if choice == '1':
-                print("Option 1 selected.")
                 while True:
                     update_allowed_devices_list()
                     another_entry = input("Do you want to add a new MAC address to the accept list? (Y/N): ").strip().upper()
@@ -344,19 +343,20 @@ def main():
                         print("Data saved successfully.")
                         print("Initializing your AP.")
                         break
+                    print("")
             elif choice == '2':
-                print("Option 2 selected.")
                 print(display_device_info(False))
+                print("")
             elif choice == '3':
-                print("Option 3 selected.")
-                print(display_device_connected(False))
+                print(display_device_connected(connected_macs,False))
+                print("")
             elif choice == '4':
-                print("Option 4 selected.")
                 subject = "Information about connected devices and of interest"
                 body = f"<p>Table: Information about interest devices</p>{display_device_info(True)}"
                 body += f"<p>Table: Connected Devices</p>{display_device_connected(connected_macs, True)}"
                 send_email(admin_email, subject, body)
                 print(f"Information sent by email to {admin_email}.")
+                print("")
             elif choice == '5':
                 print("Exiting the program. Goodbye!")
                 scheduler_running=False
