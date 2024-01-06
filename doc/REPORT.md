@@ -107,7 +107,7 @@ In this section, the results of the project are presented.
 
 ### The control menu
 
-Once executed the main program, the first procedure is the admin email input. Below it is showed:
+Once executed the main program, the first procedure is the admin email input. Below it is shown:
 
 FOTO
 
