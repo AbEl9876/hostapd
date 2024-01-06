@@ -63,9 +63,9 @@ This function is executed each 20 seconds. The design implemented for this funct
 
 The design implemented for `monitor_device_connection(line)` is the following:
 
-1. If the log file line corresponds to a connection type, it adds the MAC to a global variable list called `connected_macs`. It also sends an email using the function `send_email()` in order to notify the admin about the MAC connection.
+1. If the log file line corresponds to a connection type (contains the substring "AP-STA-CONNECTED"), it adds the MAC to a global variable list called `connected_macs`. It also sends an email using the function `send_email()` in order to notify the admin about the MAC connection.
 
-2. If the log file line corresponds to a disconnection type, it deletes the MAC from the global variable list called `connected_macs`. Then, by opening the file `time_ranges.txt`, it checks if the corresponding MAC reached end time.
+2. If the log file line corresponds to a disconnection type (contains the substring "AP-STA-DISCONNECTED"), it deletes the MAC from the global variable list called `connected_macs`. Then, by opening the file `time_ranges.txt`, it checks if the corresponding MAC reached end time.
 - If it did, it sends an email notifying the admin that this MAC disconnected due to time expiration.
 - If it did not, it sends an email notifying the admin that this MAC disconnected, but that the reason is unknown.
 In both cases, it uses again the function `send_email()` for sending the corresponding email.
