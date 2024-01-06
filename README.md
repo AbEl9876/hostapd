@@ -89,7 +89,7 @@ In the fourth and final step, we run the file main.py (which you can find in the
 sudo python3 main.py
 ```
 
-Now we have created the AP, which in our case, we have assigned the name X, and we can now connect to it from any device if its MAC address is among the MAC addresses that the AP accepts and within the specified time frames.
+Now we have created the AP, which in our case, we have assigned the name HotspotAbelJoel, and we can now connect to it from any device if its MAC address is among the MAC addresses that the AP accepts and within the specified time frames.
 
 ## Design, implementation and results
 
