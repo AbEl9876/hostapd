@@ -133,18 +133,18 @@ file:///home/abel/Im%C3%A1genes/Capturas%20de%20pantalla/Captura%20desde%202024-
 
 We have four types of notification implemented for our program:
 
-1. Email Connection:
+1. **Email Connection:**
 
 ![Captura desde 2024-01-06 19-50-53](https://github.com/AbEl9876/hostapd/assets/133850497/59a93d92-a486-4937-8225-e5e5de7b7e1e)
 
-2. Email Disconnection due to end time:
+2. **Email Disconnection due to end time:**
 
 ![Captura desde 2024-01-06 19-53-14](https://github.com/AbEl9876/hostapd/assets/133850497/53c87576-a1d7-4a22-aeae-ce11dd15683a)
 
-3. Email Normal disconnection:
+3. **Email Normal disconnection:**
 
 ![Captura desde 2024-01-06 19-50-14](https://github.com/AbEl9876/hostapd/assets/133850497/8537f055-8339-4b78-a37e-54ebb68ea582)
 
-4. Email sent by choosing the Option 4 in the menu. This mail shows the devices of interest and also the connected devices:
+4. **Email sent by choosing the Option 4 in the menu. This mail shows the devices of interest and also the connected devices:**
 
 ![Captura desde 2024-01-06 19-51-47](https://github.com/AbEl9876/hostapd/assets/133850497/f87ece2b-d7ea-4b93-8363-706deaf4f123)
