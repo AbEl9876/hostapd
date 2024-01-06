@@ -147,3 +147,8 @@ We have four types of notification implemented for our program:
 4. **Email sent by choosing the Option 4 in the menu. This mail shows the devices of interest and also the connected devices:**
 
 ![Captura desde 2024-01-06 19-51-47](https://github.com/AbEl9876/hostapd/assets/133850497/f87ece2b-d7ea-4b93-8363-706deaf4f123)
+
+### Video showing the Demo
+
+Below, you'll find the [demo video](https://youtu.be/0ztkv-48olo) showcasing the proper functioning of the AP.
+
