@@ -148,7 +148,7 @@ We have four types of notification implemented for our program:
 
 ![Captura desde 2024-01-06 19-51-47](https://github.com/AbEl9876/hostapd/assets/133850497/f87ece2b-d7ea-4b93-8363-706deaf4f123)
 
-### Video showing the Demo
+## Video showing the Demo
 
 Below, you'll find the [demo video](https://youtu.be/0ztkv-48olo) showcasing the proper functioning of the AP.
 
