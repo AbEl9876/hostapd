@@ -42,8 +42,12 @@ We modify the `/etc/network/interfaces` file (sudo nano /etc/network/interfaces)
 ```bash
 auto wlp3s0
 iface wlp3s0 inet static
-address 172.16.0.1
-netmask 255.255.255.0
+```
+Afterwards we will have to restart the PC.
+
+We assign the IP and mask to the wlp3s0 interface with the following instruction.
+```bash
+sudo ip a add 172.16.0.1/24 dev wlp3s0
 ```
 
 #### **Step 2: Configuring DHCP Server** 
