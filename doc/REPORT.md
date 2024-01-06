@@ -16,7 +16,7 @@ First of all, it is important to understand the main functionality of the progra
 
 As there must be parallel processes running at the same time, in this project we use both threads and subprocesses. 
 
-Thus, the design implemented for the main() function is the following:
+Thus, the design implemented for the `main()` function is the following:
 
 1. Asks for an admin email where it must send all the important information. Validates the email using the function `validate_email()`.
 2. Generates the corresponding hostapd configuration file using the function ` generate_hostapd_conf(WIFI_CONFIG)`. `WIFI_CONFIG` is a dictionary with the configuration parameters wanted in the hostapd configuration file.
