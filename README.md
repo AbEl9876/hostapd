@@ -87,8 +87,7 @@ sudo python3 main.py
 
 Now we have created the AP, which in our case, we have assigned the name X, and we can now connect to it from any device if its MAC address is among the MAC addresses that the AP accepts and within the specified time frames.
 
-## Access Control Management Console
-Explicar que es pot fer amb la consola (opcions de consola), com filtrem els usuaris per mac i per temps, com avisem al administrador que s'ha connectat i desconectat (pel monitor i apart mirar de notificar per correo (veure si es necessari)), ...
+## Design, implementation and results
 
-![Captura desde 2024-01-05 17-30-11](https://github.com/AbEl9876/hostapd/assets/133850497/1e83b9cb-5493-444e-a35f-35a123954681)
+The design, implementation and results of this project are explained in [doc/REPORT.md](doc/REPORT.md). The aim of that document is to explain the main functionalities implemented for our program, as well as the resulting menu that allows to control all the system.
 
