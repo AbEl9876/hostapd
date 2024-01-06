@@ -142,16 +142,16 @@ def monitor_device_connection(log_entry):
                 mac, start, end = line.strip().split()
                 if mac == mac_address:
                     if start <= datetime.now().strftime('%H:%M') <= end:
-                        # The device was disconnected because access timed out
-                        connected_macs = [mac for mac in connected_macs if mac != mac_address]
-                        subject = f"Device disconnected from AP: {mac_address}"
-                        body = f"The device with MAC {mac_address} has disconnected from the AP because the access time has expired (from {start} to {end})."
-                        send_email(admin_email, subject, body)
-                    else:
                         # The device was disconnected for another reason
                         connected_macs = [mac for mac in connected_macs if mac != mac_address]
                         subject = f"Device disconnected from AP: {mac_address}"
                         body = f"The device with MAC {mac_address} has disconnected from the AP for an unknown reason."
+                        send_email(admin_email, subject, body)
+                    else:
+                        # The device was disconnected because access timed out
+                        connected_macs = [mac for mac in connected_macs if mac != mac_address]
+                        subject = f"Device disconnected from AP: {mac_address}"
+                        body = f"The device with MAC {mac_address} has disconnected from the AP because the access time has expired (from {start} to {end})."
                         send_email(admin_email, subject, body)
                     break  
 
@@ -353,7 +353,7 @@ def main():
             elif choice == '4':
                 print("Option 4 selected.")
                 subject = "Information about connected devices and of interest"
-                body = f"<p>Table: Information about associated devices</p>{display_device_info(True)}"
+                body = f"<p>Table: Information about interest devices</p>{display_device_info(True)}"
                 body += f"<p>Table: Connected Devices</p>{display_device_connected(connected_macs, True)}"
                 send_email(admin_email, subject, body)
                 print(f"Information sent by email to {admin_email}.")
